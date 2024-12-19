@@ -1,83 +1,14 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { useAuth } from '@/app/providers/AuthProvider'
-import { getFirstNameFromEmail } from '@/lib/utils'
+import LoginForm from '@/components/custom-ui/login-form'
 
 export default function LoginPage() {
-  const router = useRouter()
-  const { login } = useAuth()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [error, setError] = useState<string | null>(null)
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      login({
-        id: 1,
-        name: getFirstNameFromEmail(email),
-        email,
-        role: '',
-        canSend: false,
-        channels: [],
-        avatarUrl: ''
-      }) 
-      router.push('/dashboard')
-    } catch (err) {
-      setError('Failed to login. Please check your credentials.')
-    }
-  }
-
   return (
     <div className="flex min-h-screen">
       {/* Login Form Side */}
       <div className="flex w-1/2 items-center justify-center">
-        <Card className="w-[350px]">
-          <form>
-            <CardHeader>
-              <CardTitle>{process.env.NEXT_PUBLIC_APP_NAME}</CardTitle>
-              <CardDescription>Enter your credentials to access your account</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="email">Email</Label>
-                    <Input 
-                      id="email" 
-                      placeholder="Enter your email" 
-                      type="email" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="password">Password</Label>
-                    <Input 
-                      id="password" 
-                      placeholder="Enter your password" 
-                      type="password" 
-                      value={password} 
-                      onChange={(e)=> setPassword(e.target.value)}
-                      />
-                  </div>
-                </div>
-            </CardContent>
-            <CardFooter>git 
-              <Button
-                type="button"
-                onClick={handleLogin}
-                className="w-full"
-              >Log In</Button>
-            </CardFooter>
-          </form>
-          {error && <p>{error}</p>}
-        </Card>
+        <LoginForm />
       </div>
 
       {/* Welcome Image Side */}
