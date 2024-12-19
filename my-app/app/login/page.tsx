@@ -14,7 +14,7 @@ export default function LoginPage() {
       {/* Welcome Image Side */}
       <div className="relative flex w-1/2 items-center justify-center bg-gray-100">
         <Image
-          src="/placeholder.svg?height=600&width=600"
+          src="/images/logo.png"
           alt="Welcome to our application"
           width={600}
           height={600}

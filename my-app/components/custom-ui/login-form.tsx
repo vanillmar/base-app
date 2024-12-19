@@ -15,18 +15,19 @@ import {
     FormItem, 
     FormLabel, 
     FormControl, 
-    FormMessage 
+    FormMessage, 
+    Form
 } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form/dist/useForm'
-import { zodResolver } from '@hookform/resolvers/zod'
 import axiosInstance from '@/lib/axios'
 import axios from 'axios'
 import { useAuth } from '@/app/providers/AuthProvider'
 import { useRouter } from 'next/navigation'
-import type User from '@/app/user/type/user'
+import { type AuthApiResponse } from '@/app/api/types/types'
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -49,17 +50,16 @@ export default function LoginForm() {
         setErrorMessage('')
     
         try {
-            const response = await axiosInstance.post<User>('/login', data)
-            const user = response.data
-            login({
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                canSend: user.canSend,
-                channels: user.channels,
-                avatarUrl: user.avatarUrl
-            }) 
+            const response = await axiosInstance.post<AuthApiResponse>('/login', data)
+            if ('error_type' in response.data) {
+                // Handle error response
+                setErrorMessage(response.data.error_message) // Correct property usage
+                setLoading(false)
+                return // Stop further execution
+            }
+            // Handle successful response (User)
+            const { id, name, email, role, canSend, channels, avatarUrl } = response.data
+            login({ id, name, email, role, canSend, channels, avatarUrl })
             router.push('/dashboard')
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
@@ -70,50 +70,58 @@ export default function LoginForm() {
         } finally {
           setLoading(false)
         }
-      }
+    }
 
     return (
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <Card className="w-[350px]">
-                <CardHeader>
-                    <CardTitle>{process.env.NEXT_PUBLIC_APP_NAME}</CardTitle>
-                    <CardDescription>Enter your credentials to access your account</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid w-full items-center gap-4">
-                        <div className="flex flex-col space-y-1.5">
-                            <FormField control={form.control} name="email" render={({ field }) => (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <Card className="w-[350px]">
+                    <CardHeader>
+                        <CardTitle>{process.env.NEXT_PUBLIC_APP_NAME}</CardTitle>
+                        <CardDescription>Enter your credentials to access your account</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid w-full items-center gap-4">
+                            <div className="flex flex-col space-y-1.5">
+                                <FormField 
+                                    control={form.control} 
+                                    name="email" 
+                                    render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input type="email" placeholder="mail@example.com" {...field} />
+                                    </FormControl>
+                                    <FormMessage>{form.formState.errors.email?.message}</FormMessage>
+                                    </FormItem>
+                                )} />
+                            </div>
+                            <div className="flex flex-col space-y-1.5">
+                            <FormField 
+                                control={form.control} 
+                                name="password" 
+                                render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input type="email" placeholder="mail@example.com" {...field} />
+                                    <Input type="password" placeholder="********" {...field} />
                                 </FormControl>
-                                <FormMessage>{form.formState.errors.email?.message}</FormMessage>
+                                <FormMessage>{form.formState.errors.password?.message}</FormMessage>
                                 </FormItem>
                             )} />
+                            </div>
                         </div>
-                        <div className="flex flex-col space-y-1.5">
-                        <FormField control={form.control} name="password" render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                                <Input type="password" placeholder="********" {...field} />
-                            </FormControl>
-                            <FormMessage>{form.formState.errors.password?.message}</FormMessage>
-                            </FormItem>
-                        )} />
-                        </div>
-                    </div>
-                </CardContent>
-                <CardFooter>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                        {loading && (<Loader2 className="animate-spin"/>)}
-                        Log In
-                    </Button>
-                </CardFooter>
-                {errorMessage && <div className="text-red-600">{errorMessage}</div>}
-            </Card>
-        </form>
+                    </CardContent>
+                    <CardFooter>
+                        <Button type="submit" className="w-full" disabled={loading}>
+                            {loading && (<Loader2 className="animate-spin"/>)}
+                            Log In
+                        </Button>
+                    </CardFooter>
+                    {errorMessage && <div className="text-red-600">{errorMessage}</div>}
+                </Card>
+            </form>
+        </Form>
     )
 }
 
