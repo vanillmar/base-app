@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Bell, Calendar, CreditCard, Megaphone, School } from 'lucide-react'
 import React from 'react'
 import type NotificationProps from './types/NotificationProps'
-import { type Notification } from './types/notification'
+import { type Notification } from './types/Notification'
 
 export default function NotificationCenter() {
   return (

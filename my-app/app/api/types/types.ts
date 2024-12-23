@@ -6,3 +6,4 @@ export type ErrorResponse = {
 };
 
 export type AuthApiResponse = User | ErrorResponse;
+

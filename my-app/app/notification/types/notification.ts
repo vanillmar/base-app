@@ -1,8 +1,14 @@
+type NotificationStatus = 'sent' | 'failed' | 'pending'
+
+type NotificationType = 'email' | 'sms' | 'in-app'
+
 export interface Notification {
-    type: 'academic' | 'event' | 'fee' | 'personal';
-    title: string;
-    date: string;
-    content: string;
-    urgent: boolean;
+  id: string
+  type: NotificationType
+  senderId: string
+  recipientId: string | null
+  groupId: string | null
+  message: string
+  status: NotificationStatus
+  timestamp: Date
 }
-  
