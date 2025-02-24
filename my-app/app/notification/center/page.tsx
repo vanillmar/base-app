@@ -1,118 +1,63 @@
-'use client'
 
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Table, TableRow, TableHeader, TableCell, TableBody } from '@/components/ui/table'
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
-import { Switch } from '@/components/ui/switch'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent } from '@/components/ui/dropdown-menu'
-import type User from '@/app/user/type/user'
-import { PermissionType } from '../types/PermissionType'
+import { Card } from '@/components/ui/card'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import React from 'react'
+import { DataTable } from '@/components/custom-ui/datatable'
+import axiosInstance from '@/lib/axios'
+import { columns as permissionColumns } from '../types/Permission'
+import { columns as logColumns } from '../types/NotificationLogs'
 
-const NotificationCenter = () => {
-  const [users, setUsers] = useState<User[]>([
-    {
-      id: 1, name: 'John Doe', email: 'john@example.com', role: 'Notification Manager', canSend: true, channels: ['Email', 'Push'],
-      avatarUrl: ''
+async function getServerSideProps() {
+  const logsResponse = await axiosInstance.get('/notifications/logs')
+  const logsData = await logsResponse.data.data
+
+  const permissionsResponse = await axiosInstance.get('/notifications/permissions')
+  const permissionsData = await permissionsResponse.data.data
+
+  return {
+    props: {
+      logsData,
+      permissionsData,
     },
-    {
-      id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Viewer', canSend: false, channels: [],
-      avatarUrl: ''
-    },
-  ])
-
-
-  const togglePermission = (userId: number, permissionType: PermissionType) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user.id === userId
-          ? { ...user, [permissionType]: !user[permissionType] }
-          : user
-      )
-    )
   }
-
-  const updateChannels = (userId: number, channel: string) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => {
-        if (user.id === userId) {
-          const channels = user.channels.includes(channel)
-            ? user.channels.filter((ch) => ch !== channel)
-            : [...user.channels, channel]
-          return { ...user, channels }
-        }
-        return user
-      })
-    )
-  }
-
-  return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Notification Center</h1>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableCell>User</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Role</TableCell>
-            <TableCell>Can Send Notifications</TableCell>
-            <TableCell>Channels</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-        {users.map((user) => (
-          <TableRow key={user.id}>
-            <TableCell>{user.name}</TableCell>
-            <TableCell>{user.email}</TableCell>
-            <TableCell>{user.role}</TableCell>
-            <TableCell>
-              <Switch
-                checked={user.canSend}
-                onCheckedChange={() => togglePermission(user.id, PermissionType.CanSend)}
-              />
-            </TableCell>
-            <TableCell>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="sm">Manage Channels</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {['Email', 'Push', 'SMS'].map((channel) => (
-                    <DropdownMenuItem
-                      key={channel}
-                      onClick={() => updateChannels(user.id, channel)}
-                    >
-                      <Switch checked={user.channels.includes(channel)} /> {channel}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell>
-            <TableCell>
-            <Dialog>
-                <DialogTrigger asChild>
-                  <Button size="sm" variant="outline">
-                    Edit
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <h2 className="text-lg font-bold">Edit Permissions for {user.name}</h2>
-                  {/* Custom form fields for editing roles/permissions can be added here */}
-                </DialogContent>
-              </Dialog>
-            </TableCell>
-          </TableRow>
-        ))}
-        </TableBody>
-      </Table>
-
-      {/* Add User Button */}
-      <Button className="mt-4" variant="primary">
-        Add User
-      </Button>
-    </div>
-  )
 }
 
-export default NotificationCenter
+export default async function NotificationCenterPage() {
+  const { props: { logsData, permissionsData } } = await getServerSideProps()
+  return (
+        <div className="p-6 space-y-6">
+          <h1 className="text-2xl font-bold">Notification Dashboard</h1>
+    
+          {/* Overview Cards */}
+          <div className="grid grid-cols-3 gap-4">
+            <Card title="Total Emails Sent" content="5000" />
+            <Card title="Total SMS Sent" content="2000" />
+            <Card title="Total In-App Notifications Sent" content="1500" />
+          </div>
+    
+          {/* Tabs for Logs and Permissions */}
+          <Tabs defaultValue="logs">
+            <TabsList>
+              <TabsTrigger value="logs">Logs</TabsTrigger>
+              <TabsTrigger value="permissions">Permissions</TabsTrigger>
+            </TabsList>
+    
+            {/* Logs Tab */}
+            <TabsContent value="logs">
+              <DataTable
+                columns={ logColumns }
+                data={logsData}
+              />
+            </TabsContent>
+    
+            {/* Permissions Tab */}
+            <TabsContent value="permissions">
+              <DataTable
+                columns={ permissionColumns }
+                data={ permissionsData }
+              />
+            </TabsContent>
+          </Tabs>
+        </div>
+  )
+}
