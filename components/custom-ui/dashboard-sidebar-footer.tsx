@@ -1,4 +1,4 @@
-import { ChevronsUpDown, Link, LogOut, User as UserIcon } from 'lucide-react'
+import { ChevronsUpDown, LogOut, User as UserIcon } from 'lucide-react'
 import {
   SidebarFooter,
   SidebarMenuButton,

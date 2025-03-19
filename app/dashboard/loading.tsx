@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/custom-ui/skeleton';
+import { Skeleton } from '@/components/custom-ui/skeleton'
 
 export default function DashboardLoadingPage() {
     return ( 

@@ -1,6 +1,6 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET() {
   const logsData = [
     { id: 1,  sender: 'Alice', recipient: 'Bob', type: 'Email', status: 'Sent', timestamp: '2023-10-01 10:00:00' },
     { id: 2, sender: 'Charlie', recipient: 'Dave', type: 'SMS', status: 'Failed', timestamp: '2023-10-01 11:00:00' },

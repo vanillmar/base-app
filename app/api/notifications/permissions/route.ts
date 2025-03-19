@@ -1,6 +1,6 @@
-import { type  NextRequest, NextResponse } from 'next/server'
+import {  NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET() {
   const permissionsData = [
     { id: 1, name: 'John Doe', type: 'Email', allowed: true },
     { id: 2, name: 'Jane Smith', type: 'SMS', allowed: false },
