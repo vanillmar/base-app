@@ -90,7 +90,7 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.projectKey=vanillmar_base-app \
-            -Dsonar.organization=unipiaget \
+            -Dsonar.organization=vanillmar \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=$FRONT_TOKEN \
