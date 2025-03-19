@@ -92,7 +92,7 @@ jobs:
             -Dsonar.projectKey=vanillmar_base-app \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$FRONT_TOKEN \
+            -Dsonar.token=$FRONT_TOKEN \
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
 
   build:
