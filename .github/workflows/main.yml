@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
+          cache: 'pnpm'
       - name: Instalar pnpm
         run: npm install -g pnpm
       
@@ -39,6 +39,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'pnpm'
       
       - name: Restore node_modules
         run: pnpm install --frozen-lockfile
@@ -58,6 +59,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'pnpm'
       
       - name: Restore node_modules
         run: pnpm install --frozen-lockfile
@@ -77,6 +79,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'pnpm'
       
       - name: Restore node_modules
         run: pnpm install --frozen-lockfile
@@ -109,6 +112,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'pnpm'
       
       - name: Restore node_modules
         run: pnpm install --frozen-lockfile
