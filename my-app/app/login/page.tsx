@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import Image from 'next/image'
 import LoginForm from '@/components/custom-ui/login-form'
+import LoginSidePanel from '@/components/custom-ui/login-sidepanel'
 
 export default function LoginPage() {
   return (
@@ -13,16 +13,7 @@ export default function LoginPage() {
 
       {/* Welcome Image Side */}
       <div className="relative flex w-1/2 items-center justify-center bg-gray-100">
-        <Image
-          src="/images/logo.png"
-          alt="Welcome to our application"
-          width={600}
-          height={600}
-          className="object-cover"
-        />
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <h1 className="text-4xl font-bold text-white">Welcome to {process.env.NEXT_PUBLIC_APP_NAME}</h1>
-        </div>
+        <LoginSidePanel />
       </div>
     </div>
   )
