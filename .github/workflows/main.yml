@@ -86,14 +86,13 @@ jobs:
 
       - name: Run SonarQube Scan
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          FRONT_TOKEN: ${{ secrets.FRONT_TOKEN }}
         run: |
           sonar-scanner \
             -Dsonar.projectKey=vanillmar_base-app \
-            -Dsonar.organization=unipiaget \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.login=$FRONT_TOKEN \
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
 
   build:
