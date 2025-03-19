@@ -20,15 +20,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
-
-      - name: Instalar pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8  # Adjust version if needed
-
+          cache: 'npm'
+      
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
 
   lint:
     name: Lint Code
@@ -42,13 +37,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
+          cache: 'npm'
       
-      - name: Restore node_modules
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: npm install
       
       - name: Run Lint
-        run: pnpm run lint
+        run: npm run lint
 
   test:
     name: Run Tests
@@ -62,13 +57,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
+          cache: 'npm'
       
-      - name: Restore node_modules
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: npm install
       
       - name: Run Tests
-        run: pnpm test
+        run: npm test
 
   sonarqube:
     name: SonarQube Analysis
@@ -82,25 +77,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
+          cache: 'npm'
       
-      - name: Restore node_modules
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: npm install
 
       - name: Test and coverage
-        run: pnpm jest --coverage
+        run: npm run test -- --coverage
+
+      - name: Install SonarQube Scanner
+        run: npm install -g sonarqube-scanner
 
       - name: Run SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          npm install -g sonarqube-scanner
           sonar-scanner \
             -Dsonar.projectKey=vanillmar_base-app \
             -Dsonar.organization=unipiaget \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
+            -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
 
   build:
@@ -115,24 +112,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
+          cache: 'npm'
       
-      - name: Restore node_modules
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: npm install
       
       - name: Build Next.js App
-        run: pnpm run build
-
-  # deploy:
-  #   name: Deploy to Vercel
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-      
-  #     - name: Install Vercel CLI
-  #       run: npm install -g vercel
-      
-  #     - name: Deploy to Vercel
-  #       run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: npm run build
