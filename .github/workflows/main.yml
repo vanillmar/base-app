@@ -20,10 +20,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Instalar pnpm
+        run: npm install -g pnpm
       
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
   lint:
     name: Lint Code
@@ -39,10 +41,10 @@ jobs:
           node-version: 18
       
       - name: Restore node_modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       
       - name: Run Lint
-        run: npm run lint
+        run: pnpm run lint
 
   test:
     name: Run Tests
@@ -58,10 +60,10 @@ jobs:
           node-version: 18
       
       - name: Restore node_modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       
       - name: Run Tests
-        run: npm test
+        run: pnpm test
 
   sonarqube:
     name: SonarQube Analysis
@@ -77,10 +79,10 @@ jobs:
           node-version: 18
       
       - name: Restore node_modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Test and coverage
-        run: npm jest --coverage
+        run: pnpm jest --coverage
 
       - name: Run SonarQube Scan
         env:
@@ -109,10 +111,10 @@ jobs:
           node-version: 18
       
       - name: Restore node_modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       
       - name: Build Next.js App
-        run: npm run build
+        run: pnpm run build
 
   # deploy:
   #   name: Deploy to Vercel
