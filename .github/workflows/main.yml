@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
       
       - name: Install pnpm
         run: npm install -g pnpm@latest-10
@@ -39,7 +38,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       
       - name: Install dependencies
         run: npm install -g pnpm@latest-10
@@ -59,7 +58,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
       
       - name: Install pnpm
         run: npm install -g pnpm@latest-10
@@ -79,7 +77,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
       
       - name: Install pnpm
         run: npm install -g pnpm@latest-10
@@ -116,9 +113,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
-      
+          node-version: 20      
       - name: Install dependencies
         run: npm install -g pnpm@latest-10
       
