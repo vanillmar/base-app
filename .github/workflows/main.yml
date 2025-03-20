@@ -19,10 +19,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'pnpm'
       
+      - name: Install pnpm
+        run: npm install -g pnpm@latest-10
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
   lint:
     name: Lint Code
@@ -38,10 +42,10 @@ jobs:
           node-version: 18
       
       - name: Install dependencies
-        run: npm install
+        run: npm install -g pnpm@latest-10
       
       - name: Run Lint
-        run: npm run lint
+        run: pnpm lint
 
   test:
     name: Run Tests
@@ -54,13 +58,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'pnpm'
       
+      - name: Install pnpm
+        run: npm install -g pnpm@latest-10
+
       - name: Install dependencies
-        run: npm install
-      
-      - name: Run Tests
-        run: npm test
+        run: pnpm test
 
   sonarqube:
     name: SonarQube Analysis
@@ -73,16 +78,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'pnpm'
       
+      - name: Install pnpm
+        run: npm install -g pnpm@latest-10
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Test and coverage
-        run: npm run test -- --coverage
+        run: pnpm test -- --coverage
 
       - name: Install SonarQube Scanner
-        run: npm install -g sonarqube-scanner
+        run: pnpm install -g sonarqube-scanner
 
       - name: Run SonarQube Scan
         env:
@@ -107,10 +116,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'pnpm'
       
       - name: Install dependencies
-        run: npm install
+        run: npm install -g pnpm@latest-10
       
       - name: Build Next.js App
-        run: npm run build
+        run: pnpm build
