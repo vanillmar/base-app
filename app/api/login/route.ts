@@ -12,8 +12,6 @@ export async function POST(req: NextRequest) {
       name: getFirstNameFromEmail(email),
       email,
       role: '',
-      canSend: false,
-      channels: [],
       avatarUrl: '',
       message: 'Login successful' 
     }, { status: 200 })
