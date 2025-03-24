@@ -2,6 +2,5 @@ node_modules
 dist
 coverage
 public
-__tests__
 components
 hooks
