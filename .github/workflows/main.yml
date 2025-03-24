@@ -110,7 +110,6 @@ jobs:
             -Dsonar.sources=. \
             -Dsonar.tests=__tests__
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-            -Dsonar.coverage.exclusions=**/__tests__/**
 
   build:
     name: Build Project

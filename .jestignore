@@ -4,3 +4,4 @@ coverage
 public
 components
 hooks
+__tests__
