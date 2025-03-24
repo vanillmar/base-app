@@ -58,8 +58,8 @@ export default function LoginForm() {
                 return // Stop further execution
             }
             // Handle successful response (User)
-            const { id, name, email, role, canSend, channels, avatarUrl } = response.data
-            login({ id, name, email, role, canSend, channels, avatarUrl })
+            const { id, name, email, role, avatarUrl } = response.data
+            login({ id, name, email, role, avatarUrl })
             router.push('/dashboard')
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
