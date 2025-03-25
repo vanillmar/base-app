@@ -101,9 +101,6 @@ jobs:
             -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.sources=. \
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-            -Dsonar.exclusions=**/*.d.ts, **/types/**, **/__mocks__/**
-            -Dsonar.coverage.exclusions=**/__tests__/**,**/hooks/**, **/components/**, **/public/**, **/node_modules/**, sonar.exclusions=**/*.d.ts, **/types/**, **/__mocks__/**
-
   build:
     name: Build Project
     runs-on: ubuntu-latest
