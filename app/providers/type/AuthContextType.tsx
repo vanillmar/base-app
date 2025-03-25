@@ -1,4 +1,4 @@
-import type User from '@/app/user/type/user'
+import type User from '@/app/user/types/user'
 
 export default interface AuthContextType {
     user: User | null;

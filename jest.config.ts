@@ -31,6 +31,7 @@ const config: Config = {
   collectCoverageFrom: [
     'app/**/*.{ts,tsx}',
     'lib/**/*.{ts,tsx}',
+    '!app/**/*.d.ts',
   ],
 
   // The directory where Jest should output its coverage files
