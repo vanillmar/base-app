@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type User from '@/app/user/type/user'
+import type User from '@/app/user/types/user'
 import { getInitials, obfuscateEmail } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 

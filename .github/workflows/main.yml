@@ -20,8 +20,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          node-version: 20
-          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -38,9 +36,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          node-version: 20
-          cache: 'pnpm'
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
@@ -59,8 +54,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          node-version: 20
-          cache: 'pnpm'
 
       - name: Install pnpm
         run: npm install -g pnpm@latest-10
@@ -83,8 +76,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          node-version: 20
-          cache: 'pnpm'
       
       - name: Install pnpm
         run: npm install -g pnpm@latest-10
@@ -100,16 +91,16 @@ jobs:
 
       - name: Run SonarQube Scan
         env:
-          FRONT_TOKEN: ${{ secrets.FRONT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
           sonar-scanner \
             -Dsonar.projectKey=vanillmar_base-app \
             -Dsonar.organization=vanillmar \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=$FRONT_TOKEN \
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.sources=. \
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-
   build:
     name: Build Project
     runs-on: ubuntu-latest
@@ -122,8 +113,6 @@ jobs:
         uses:  pnpm/action-setup@v4
         with:
           version: 10
-          node-version: 20
-          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install

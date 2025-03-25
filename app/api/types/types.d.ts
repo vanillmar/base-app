@@ -1,4 +1,4 @@
-import type User from '@/app/user/type/user'
+import type User from '@/app/user/types/user'
 
 export type ErrorResponse = {
     error_type: 'error';
