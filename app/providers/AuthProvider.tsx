@@ -1,10 +1,10 @@
 'use client'
 import React, { createContext, useContext, useState, type ReactNode } from 'react'
-import type AuthContextType from './type/AuthContextType'
+import type UserAuthContext from './types/UserContextType'
 import type User from '../user/types/user'
 
 // Create the context with default values
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<UserAuthContext | undefined>(undefined)
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   )
 }
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = (): UserAuthContext => {
   const context = useContext(AuthContext)
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider')
