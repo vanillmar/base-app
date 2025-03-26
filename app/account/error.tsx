@@ -19,18 +19,12 @@ export default function AccountErrorPage({
         <AlertDescription className="mb-4">
           {error.message || 'Unable to load page'}
         </AlertDescription>
-        
+
         <div className="flex items-center space-x-4">
-          <Button 
-            variant="outline" 
-            onClick={() => reset()}
-          >
+          <Button variant="outline" onClick={() => reset()}>
             Try Again
           </Button>
-          <Button 
-            variant="secondary"
-            onClick={() => window.location.href = '/dashboard'}
-          >
+          <Button variant="secondary" onClick={() => (window.location.href = '/dashboard')}>
             Go to Dashboard
           </Button>
         </div>

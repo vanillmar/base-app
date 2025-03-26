@@ -1,4 +1,4 @@
-import {  NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
   const permissionsData = [
@@ -6,8 +6,11 @@ export async function GET() {
     { id: 2, name: 'Jane Smith', type: 'SMS', allowed: false },
     { id: 3, name: 'Alice Johnson', type: 'Push Notification', allowed: true },
     { id: 4, name: 'Bob Brown', type: 'Email', allowed: false },
-    { id: 5, name: 'Charlie Davis', type: 'SMS', allowed: true },
+    { id: 5, name: 'Charlie Davis', type: 'SMS', allowed: true }
   ]
 
-  return NextResponse.json({ data: permissionsData, message: 'Data loaded successfully' }, { status: 200 })
+  return NextResponse.json(
+    { data: permissionsData, message: 'Data loaded successfully' },
+    { status: 200 }
+  )
 }

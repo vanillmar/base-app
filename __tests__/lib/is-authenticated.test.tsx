@@ -3,13 +3,13 @@ import { cookies } from 'next/headers'
 
 // Mock next/headers
 jest.mock('next/headers', () => ({
-  cookies: jest.fn(),
+  cookies: jest.fn()
 }))
 
 describe('isAuthenticated', () => {
   it('returns true if auth_token exists', async () => {
     ;(cookies as jest.Mock).mockReturnValue({
-      has: jest.fn().mockReturnValue(true),
+      has: jest.fn().mockReturnValue(true)
     })
 
     const result = await isAuthenticated()
@@ -18,7 +18,7 @@ describe('isAuthenticated', () => {
 
   it('returns false if auth_token does not exist', async () => {
     ;(cookies as jest.Mock).mockReturnValue({
-      has: jest.fn().mockReturnValue(false),
+      has: jest.fn().mockReturnValue(false)
     })
 
     const result = await isAuthenticated()

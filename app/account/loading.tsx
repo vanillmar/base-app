@@ -5,7 +5,7 @@ export default function AccountSettingsLoadingPage() {
   return (
     <div className="container mx-auto py-10">
       <Skeleton className="h-10 w-64 mb-6" />
-      
+
       <Card>
         <CardHeader>
           <CardTitle>
