@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 // Define the schema for your environment variables
 const envSchema = z.object({
-  NEXT_PUBLIC_APP_NAME: z.string().nonempty(),  
+  NEXT_PUBLIC_APP_NAME: z.string().nonempty()
 })
 
 // Validate process.env

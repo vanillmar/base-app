@@ -1,7 +1,7 @@
 import { type FC } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '../providers/AuthProvider'
-import { type ProtectedRouteProps } from './type/ProtectedRouteProps'
+import { type ProtectedRouteProps } from './types/ProtectedRouteProps'
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ component: Component, roles }) => {
   const { user } = useAuth()

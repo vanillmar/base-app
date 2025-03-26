@@ -3,11 +3,11 @@ import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 jest.mock('clsx', () => ({
-  clsx: jest.fn((...inputs) => inputs.join(' ')), // Mock clsx behavior
+  clsx: jest.fn((...inputs) => inputs.join(' ')) // Mock clsx behavior
 }))
 
 jest.mock('tailwind-merge', () => ({
-  twMerge: jest.fn((classes) => classes), // Mock tailwind-merge behavior
+  twMerge: jest.fn(classes => classes) // Mock tailwind-merge behavior
 }))
 
 describe('cn utility function', () => {
@@ -59,31 +59,31 @@ describe('getFirstNameFromEmail function', () => {
 })
 
 describe('obfuscateEmail function', () => {
-    // it('obfuscates long email correctly', () => {
-    //     expect(obfuscateEmail('johndoe123456789@example.com', 20)).toBe('johndo...6789@example.com')
-    // })
+  // it('obfuscates long email correctly', () => {
+  //     expect(obfuscateEmail('johndoe123456789@example.com', 20)).toBe('johndo...6789@example.com')
+  // })
 
-    it('does not obfuscate short emails', () => {
-        expect(obfuscateEmail('john@example.com', 50)).toBe('john@example.com')
-    })
+  it('does not obfuscate short emails', () => {
+    expect(obfuscateEmail('john@example.com', 50)).toBe('john@example.com')
+  })
 
-    it('keeps short emails unchanged when below maxLength', () => {
-        expect(obfuscateEmail('john@example.com', 20)).toBe('john@example.com')
-    })
+  it('keeps short emails unchanged when below maxLength', () => {
+    expect(obfuscateEmail('john@example.com', 20)).toBe('john@example.com')
+  })
 
-    // it('handles minimum local part length properly', () => {
-    //     expect(obfuscateEmail('jd@example.com', 10)).toBe('jd@example.com')
-    // })
+  // it('handles minimum local part length properly', () => {
+  //     expect(obfuscateEmail('jd@example.com', 10)).toBe('jd@example.com')
+  // })
 
-    // it('handles emails with a long domain correctly', () => {
-    //     expect(obfuscateEmail('username@averylongdomain.com', 25)).toBe('use...ame@averylongdomain.com')
-    // })
+  // it('handles emails with a long domain correctly', () => {
+  //     expect(obfuscateEmail('username@averylongdomain.com', 25)).toBe('use...ame@averylongdomain.com')
+  // })
 
-    it('handles emails where maxLength barely allows obfuscation', () => {
-        expect(obfuscateEmail('longname@example.com', 15)).toBe('lo...me@example.com')
-    })
+  it('handles emails where maxLength barely allows obfuscation', () => {
+    expect(obfuscateEmail('longname@example.com', 15)).toBe('lo...me@example.com')
+  })
 
-    it('returns the same email if domain is missing', () => {
-        expect(obfuscateEmail('invalidEmail')).toBe('invalidEmail')
-    })
+  it('returns the same email if domain is missing', () => {
+    expect(obfuscateEmail('invalidEmail')).toBe('invalidEmail')
+  })
 })

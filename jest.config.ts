@@ -5,10 +5,10 @@
 
 import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
- 
+
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: './',
+  dir: './'
 })
 
 const config: Config = {
@@ -28,11 +28,7 @@ const config: Config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: [
-    'app/**/*.{ts,tsx}',
-    'lib/**/*.{ts,tsx}',
-    '!app/**/*.d.ts',
-  ],
+  collectCoverageFrom: ['app/**/*.{ts,tsx}', 'lib/**/*.{ts,tsx}', '!app/**/*.d.ts'],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -156,7 +152,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jsdom'
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

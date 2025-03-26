@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
+  SidebarRail
 } from '@/components/ui/sidebar'
 import { useAuth } from '@/app/providers/AuthProvider'
 import DashboardSidebarFooter from './dashboard-sidebar-footer'
@@ -20,7 +20,7 @@ const menuItems = [
   { icon: Home, label: 'Dashboard', href: '/' },
   { icon: BarChart2, label: 'Analytics', href: '/analytics' },
   { icon: Users, label: 'Customers', href: '/customers' },
-  { icon: Settings, label: 'Settings', href: '/settings' },
+  { icon: Settings, label: 'Settings', href: '/settings' }
 ]
 
 export function DashboardSidebar() {
@@ -35,7 +35,7 @@ export function DashboardSidebar() {
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menuItems.map((item) => (
+              {menuItems.map(item => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton asChild>
                     <a href={item.href}>
@@ -50,9 +50,8 @@ export function DashboardSidebar() {
         </SidebarGroup>
       </SidebarContent>
       {/* if has user */}
-      {user && ( <DashboardSidebarFooter user={user} logout={logout} />) }
+      {user && <DashboardSidebarFooter user={user} logout={logout} />}
       <SidebarRail />
     </Sidebar>
   )
 }
-

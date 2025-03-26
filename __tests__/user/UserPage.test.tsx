@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import LoginSidePanel from '@/components/custom-ui/login-sidepanel'
+import UserPage from '@/app/user/page'
 
 describe('Page', () => {
   beforeAll(() => {
@@ -8,11 +8,11 @@ describe('Page', () => {
   })
 
   it('renders a heading', () => {
-    render(<LoginSidePanel />)
+    render(<UserPage />)
 
     const heading = screen.getByRole('heading', { level: 1 })
 
     expect(heading).toBeInTheDocument()
-    expect(heading).toHaveTextContent('Welcome to TestApp')
+    expect(heading).toHaveTextContent('User Page')
   })
 })
