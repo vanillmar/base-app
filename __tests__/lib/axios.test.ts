@@ -36,16 +36,13 @@ describe('axiosInstance', () => {
     mockedAxios.get.mockResolvedValue({ data: {} })
 
     const customHeaders = {
-      headers: { Authorization: 'Bearer token123' },
+      headers: { Authorization: 'Bearer token123' }
     }
 
     // Act
     await axiosInstance.get('/test-endpoint', customHeaders)
 
     // Assert
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-     '/test-endpoint',
-      customHeaders
-    )
+    expect(mockedAxios.get).toHaveBeenCalledWith('/test-endpoint', customHeaders)
   })
 })
